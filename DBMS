@@ -1,0 +1,101 @@
+DDL
+create table students(st_id int, st_name varchar(10), st_phone varchar(10));
+desc students;
+alter table students add st_course varchar(11);
+alter table students add st_father varchar(12);
+alter table students drop column st_father;
+desc students;
+alter table students rename to students_info;
+desc students_info;
+alter table students_info rename column st_phone to st_contact;
+desc students_info;
+
+
+
+---------------------------DML--------------------------
+create table students(st_id int, st_name varchar(10), st_phone varchar(10));
+desc  students;
+insert into students values('1','saket','12387','sci');
+insert into students values('2','aniket','7887','phy');
+insert into students values('3','Ramesh','45007','com');
+select*from students;
+update students set st_name='varun' where st_id=3;
+select*from students
+delete from students where st_name='saket';
+select*from students;
+-----------------------------------------------------------------------------
+
+
+-----------------------------TCL----------------------------------
+create table stus(rol_no int, Stud_name Varchar(10), address varchar(20), phone varchar(20), age int);
+desc stus;
+insert into stus values('1','Rachna','Delhi','1578','19');
+insert into stus values('2','Prachi','Delhi','1478','20');
+insert into stus values('3','Sakshi','Delhi','1378','20');
+insert into stus values('4','tripti','Delhi','1278','18');
+select*from stus;
+delete from stus where age=18;
+commit;
+delete from stus where age=20;
+commit;
+rollback;
+--------------------------------------------------------------------------------------------------
+
+
+------------------------------Nested Queries----------------------------------------
+Q. FIND ALL THE CLIENTS WHO RE HANDLED BY MICHAEL SCOTT MANAGER.
+Select branch.branch_id
+From branch
+Where branch.manager_id=102;
+NESTED QUERY
+Select client.client_name
+From client
+Where client.branch_id(
+Select branch.branch_id
+From branch
+Where branch.manager_id=102
+);
+	Q. FIND NAMES OF ALL THE EMPLOESS WHO HAVE SOLD MORE THAN 30000.
+Select with_works.emp_id
+From with_works
+Where with_works.total sales>30000;
+NESTED QUERY
+Q. FIND THE FIRST AND LAST NAME OF EMPLOYEES WHO HAVE SOLD MORE THAN 30000.
+Select employee.first_name,employee.last_name
+From employee
+Where employee.emp_id IN(
+Select with_works.emp_id
+From with_works
+Where with_works.total sales>30000);
+----------------------------------------------------------------------------
+
+-------------------UNION EXP8---------------------------------------
+create table customers(customer_id int, customer_name varchar(10), contact varchar(10));
+desc customers;
+insert into customers values('1','Alfred','454879');
+insert into customers values('2','Michael','25654879');
+desc customers;
+select*from customers;
+create table suppliers(supplier_id int, supplier_name varchar(10), contact_supplier varchar(10));
+desc suppliers;
+insert into suppliers values('11','Almond','00879');
+insert into suppliers values('22','Reyahsa','4879');
+select*from suppliers;
+select customer_id from customers
+UNION
+select supplier_id from suppliers
+order by customer_id;
+select customer_id from customers
+MINUS
+select supplier_id from suppliers
+order by customer_id;
+select customer_id from customers
+UNION ALL
+select supplier_id from suppliers
+order by customer_id;
+
+select customer_name from customers
+UNION ALL
+select supplier_name from suppliers
+order by customer_name;
+--------------------------------------------------------------------------------------------
